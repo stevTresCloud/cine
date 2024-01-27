@@ -8,10 +8,10 @@ namespace cine_acceso_datos.Entidades
 {
     public class EstadoPedido
     {
-        public int IdEstadoPedido { get; set; }
-        public string TipoEstadoPedido { get; set; }
-        public DateTime FechaCreacionEstadoPedido { get; set; }
-        public bool ActivoEstadoPedido { get; set; }
+        public int ID_ESTADO_PEDIDO { get; set; }
+        public string TIPO_ESTADO_PEDIDO { get; set; }
+        public DateTime FECHA_CREACION_ESTADO_PEDIDO { get; set; }
+        public bool ACTIVO_ESTADO_PEDIDO { get; set; }
 
         public EstadoPedido()
         {
@@ -19,9 +19,10 @@ namespace cine_acceso_datos.Entidades
 
         public EstadoPedido(int idEstadoPedido, string tipoEstadoPedido, DateTime fechaCreacionEstadoPedido, bool activoEstadoPedido)
         {
-            IdEstadoPedido = idEstadoPedido;
-            TipoEstadoPedido = tipoEstadoPedido;
-            FechaCreacionEstadoPedido = fechaCreacionEstadoPedido;
-            ActivoEstadoPedido = activoEstadoPedido;
+            ID_ESTADO_PEDIDO = idEstadoPedido;
+            TIPO_ESTADO_PEDIDO = tipoEstadoPedido;
+            FECHA_CREACION_ESTADO_PEDIDO = fechaCreacionEstadoPedido;
+            ACTIVO_ESTADO_PEDIDO = activoEstadoPedido;
         }
     }
+}

@@ -8,11 +8,11 @@ namespace cine_acceso_datos.Entidades
 {
     public class Boletos
     {
-        public int IdSalaCine { get; set; }
-        public int IdBoletos { get; set; }
-        public DateTime FechaCreacionBoletos { get; set; }
-        public bool ActivoBoletos { get; set; }
-        public string CodigoTicket { get; set; }
+        public int ID_SALA_CINE { get; set; }
+        public int ID_BOLETOS { get; set; }
+        public DateTime FECHA_CREACION_BOLETOS { get; set; }
+        public bool ACTIVO_BOLETOS { get; set; }
+        public string CODIGO_TICKET { get; set; }
 
         public Boletos()
         {
@@ -20,10 +20,10 @@ namespace cine_acceso_datos.Entidades
 
         public Boletos(int idBoletos, DateTime fechaCreacionBoletos, bool activoBoletos, string codigoTicket)
         {
-            IdBoletos = idBoletos;
-            FechaCreacionBoletos = fechaCreacionBoletos;
-            ActivoBoletos = activoBoletos;
-            CodigoTicket = codigoTicket;
+            ID_BOLETOS = idBoletos;
+            FECHA_CREACION_BOLETOS = fechaCreacionBoletos;
+            ACTIVO_BOLETOS = activoBoletos;
+            CODIGO_TICKET = codigoTicket;
         }
     }
 }

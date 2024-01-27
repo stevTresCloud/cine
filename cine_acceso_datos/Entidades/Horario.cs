@@ -8,13 +8,13 @@ namespace cine_acceso_datos.Entidades
 {
     public class Horario
     {
-        public int IdHorario { get; set; }
-        public int IdSalaCine { get; set; }
-        public int IdPelicula { get; set; }
-        public DateTime FechaCreacionHorario { get; set; }
-        public bool ActivoHorario { get; set; }
-        public string HoraInicio { get; set; }
-        public DateTime Fecha { get; set; }
+        public int ID_HORARIO { get; set; }
+        public int ID_SALA_CINE { get; set; }
+        public int ID_PELICULA { get; set; }
+        public DateTime FECHA_CREACION_HORARIO { get; set; }
+        public bool ACTIVO_HORARIO { get; set; }
+        public string HORA_INICIO { get; set; }
+        public DateTime FECHA { get; set; }
 
         public Horario()
         {
@@ -22,12 +22,12 @@ namespace cine_acceso_datos.Entidades
 
         public Horario(int idSalaCine, int idPelicula, bool activoHorario, string horaInicio, DateTime fecha)
         {
-            IdSalaCine = idSalaCine;
-            IdPelicula = idPelicula;
-            FechaCreacionHorario = DateTime.Now;
-            ActivoHorario = activoHorario;
-            HoraInicio = horaInicio;
-            Fecha = fecha;
+            ID_SALA_CINE = idSalaCine;
+            ID_PELICULA = idPelicula;
+            FECHA_CREACION_HORARIO = DateTime.Now;
+            ACTIVO_HORARIO = activoHorario;
+            HORA_INICIO = horaInicio;
+            FECHA = fecha;
         }
     }
 }

@@ -8,14 +8,14 @@ namespace cine_acceso_datos.Entidades
 {
     public class PedidoCompra
     {
-        public int IDPedidoCompra { get; set; }
-        public int IDProveedor { get; set; }
-        public int IDEstadoPedido { get; set; }
-        public string NumeroPedidoCompra { get; set; }
-        public bool ActivoPedidoCompra { get; set; }
-        public DateTime FechaEntrega { get; set; }
-        public float Total { get; set; }
-        public DateTime FechaCreacionPedidoCompra { get; set; }
+        public int ID_PEDIDO_COMPRA { get; set; }
+        public int ID_PROVEEDOR { get; set; }
+        public int ID_ESTADO_PROVEEDOR { get; set; }
+        public string NUMERO_PEDIDO_COMPRA { get; set; }
+        public bool ACTIVO_PEDIDO_COMPRA { get; set; }
+        public DateTime FECHA_ENTREGA { get; set; }
+        public float TOTAL { get; set; }
+        public DateTime FECHA_CREACION_PEDIDO_COMPRA { get; set; }
 
         public PedidoCompra()
         {
@@ -23,13 +23,13 @@ namespace cine_acceso_datos.Entidades
 
         public PedidoCompra(int idProveedor, int idEstadoPedido, string numeroPedidoCompra, bool activoPedidoCompra, DateTime fechaEntrega, float total)
         {
-            IDProveedor = idProveedor;
-            IDEstadoPedido = idEstadoPedido;
-            NumeroPedidoCompra = numeroPedidoCompra;
-            ActivoPedidoCompra = activoPedidoCompra;
-            FechaEntrega = fechaEntrega;
-            Total = total;
-            FechaCreacionPedidoCompra = DateTime.Now;
+            ID_PROVEEDOR = idProveedor;
+            ID_ESTADO_PROVEEDOR = idEstadoPedido;
+            NUMERO_PEDIDO_COMPRA = numeroPedidoCompra;
+            ACTIVO_PEDIDO_COMPRA = activoPedidoCompra;
+            FECHA_ENTREGA = fechaEntrega;
+            TOTAL = total;
+            FECHA_CREACION_PEDIDO_COMPRA = DateTime.Now;
         }
     }
 }

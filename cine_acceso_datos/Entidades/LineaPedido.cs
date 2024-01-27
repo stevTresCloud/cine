@@ -8,13 +8,13 @@ namespace cine_acceso_datos.Entidades
 {
     public class LineaPedido
     {
-        public int IdLineaPedido { get; set; }
-        public int IdPedidoCompra { get; set; }
-        public DateTime FechaCreacionLineaPedido { get; set; }
-        public bool ActivoLineaPedido { get; set; }
-        public int Cantidad { get; set; }
-        public float Precio { get; set; }
-        public float Subtotal { get; set; }
+        public int ID_LINEA_PEDIDO { get; set; }
+        public int ID_PEDIDO_COMPRA { get; set; }
+        public DateTime FECHA_CREACION_LINEA_PEDIDO { get; set; }
+        public bool ACTIVO_LINEA_PEDIDO { get; set; }
+        public int CANTIDAD { get; set; }
+        public float PRECIO { get; set; }
+        public float SUBTOTAL { get; set; }
 
         public LineaPedido()
         {
@@ -22,12 +22,12 @@ namespace cine_acceso_datos.Entidades
 
         public LineaPedido(int idPedidoCompra, int cantidad, float precio)
         {
-            IdPedidoCompra = idPedidoCompra;
-            FechaCreacionLineaPedido = DateTime.Now;
-            ActivoLineaPedido = true;
-            Cantidad = cantidad;
-            Precio = precio;
-            Subtotal = cantidad * precio;
+            ID_PEDIDO_COMPRA = idPedidoCompra;
+            FECHA_CREACION_LINEA_PEDIDO = DateTime.Now;
+            ACTIVO_LINEA_PEDIDO = true;
+            CANTIDAD = cantidad;
+            PRECIO = precio;
+            SUBTOTAL = cantidad * precio;
         }
     }
 }
