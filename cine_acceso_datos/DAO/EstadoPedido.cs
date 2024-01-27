@@ -11,19 +11,17 @@ namespace cine_acceso_datos.DAO
 {
     public class EstadoPedidoDAO
     {
-        private string connectionString; // Tu cadena de conexión a la base de datos
+        private ConexionBD conexion;
 
-        public EstadoPedidoDAO(string connectionString)
+        public EstadoPedidoDAO(ConexionBD conexion)
         {
-            this.connectionString = connectionString;
+            this.conexion = conexion;
         }
 
         public void InsertarEstadoPedido(string tipoEstadoPedido, bool activoEstadoPedido)
         {
-            using (SqlConnection connection = new SqlConnection(connectionString))
+            using (SqlConnection connection = conexion.ObtenerConexion())
             {
-                connection.Open();
-
                 using (SqlCommand command = new SqlCommand("InsertarEstadoPedido", connection))
                 {
                     command.CommandType = CommandType.StoredProcedure;
@@ -39,10 +37,8 @@ namespace cine_acceso_datos.DAO
         {
             List<EstadoPedido> estadosPedido = new List<EstadoPedido>();
 
-            using (SqlConnection connection = new SqlConnection(connectionString))
+            using (SqlConnection connection = conexion.ObtenerConexion())
             {
-                connection.Open();
-
                 using (SqlCommand command = new SqlCommand("ObtenerTodosEstadosPedido", connection))
                 {
                     command.CommandType = CommandType.StoredProcedure;
@@ -70,10 +66,8 @@ namespace cine_acceso_datos.DAO
 
         public EstadoPedido ObtenerEstadoPedidoPorID(int idEstadoPedido)
         {
-            using (SqlConnection connection = new SqlConnection(connectionString))
+            using (SqlConnection connection = conexion.ObtenerConexion())
             {
-                connection.Open();
-
                 using (SqlCommand command = new SqlCommand("ObtenerEstadoPedidoPorID", connection))
                 {
                     command.CommandType = CommandType.StoredProcedure;
@@ -102,10 +96,8 @@ namespace cine_acceso_datos.DAO
 
         public void ActualizarEstadoPedido(int idEstadoPedido, string tipoEstadoPedido, bool activoEstadoPedido)
         {
-            using (SqlConnection connection = new SqlConnection(connectionString))
+            using (SqlConnection connection = conexion.ObtenerConexion())
             {
-                connection.Open();
-
                 using (SqlCommand command = new SqlCommand("ActualizarEstadoPedido", connection))
                 {
                     command.CommandType = CommandType.StoredProcedure;
@@ -120,10 +112,8 @@ namespace cine_acceso_datos.DAO
 
         public void EliminarEstadoPedido(int idEstadoPedido)
         {
-            using (SqlConnection connection = new SqlConnection(connectionString))
+            using (SqlConnection connection = conexion.ObtenerConexion())
             {
-                connection.Open();
-
                 using (SqlCommand command = new SqlCommand("EliminarEstadoPedido", connection))
                 {
                     command.CommandType = CommandType.StoredProcedure;

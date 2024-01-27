@@ -8,19 +8,17 @@ namespace cine_acceso_datos.DAO
 {
     public class UsuarioDAO
     {
-        private readonly string connectionString;
+        private readonly ConexionBD conexion;
 
-        public UsuarioDAO(string connectionString)
+        public UsuarioDAO(ConexionBD conexion)
         {
-            this.connectionString = connectionString;
+            this.conexion = conexion;
         }
 
         public void InsertarUsuario(Usuario usuario)
         {
-            using (SqlConnection connection = new SqlConnection(connectionString))
+            using (SqlConnection connection = conexion.ObtenerConexion())
             {
-                connection.Open();
-
                 using (SqlCommand cmd = new SqlCommand("InsertarUsuario", connection))
                 {
                     cmd.CommandType = CommandType.StoredProcedure;
@@ -43,10 +41,8 @@ namespace cine_acceso_datos.DAO
 
         public Usuario ObtenerUsuarioPorID(int idUsuario)
         {
-            using (SqlConnection connection = new SqlConnection(connectionString))
+            using (SqlConnection connection = conexion.ObtenerConexion())
             {
-                connection.Open();
-
                 using (SqlCommand cmd = new SqlCommand("ObtenerUsuarioPorID", connection))
                 {
                     cmd.CommandType = CommandType.StoredProcedure;
@@ -67,10 +63,8 @@ namespace cine_acceso_datos.DAO
 
         public void ActualizarUsuario(Usuario usuario)
         {
-            using (SqlConnection connection = new SqlConnection(connectionString))
+            using (SqlConnection connection = conexion.ObtenerConexion())
             {
-                connection.Open();
-
                 using (SqlCommand cmd = new SqlCommand("ActualizarUsuario", connection))
                 {
                     cmd.CommandType = CommandType.StoredProcedure;
@@ -95,10 +89,8 @@ namespace cine_acceso_datos.DAO
 
         public void EliminarUsuario(int idUsuario)
         {
-            using (SqlConnection connection = new SqlConnection(connectionString))
+            using (SqlConnection connection = conexion.ObtenerConexion())
             {
-                connection.Open();
-
                 using (SqlCommand cmd = new SqlCommand("EliminarUsuario", connection))
                 {
                     cmd.CommandType = CommandType.StoredProcedure;

@@ -1,28 +1,22 @@
 ﻿using Microsoft.Data.SqlClient;
 using System;
-using System.Collections.Generic;
 using System.Data;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace cine_acceso_datos.DAO
 {
     public class ProveedorDAO
     {
-        private string connectionString;
+        private ConexionBD conexionBD;
 
         public ProveedorDAO(string connectionString)
         {
-            this.connectionString = connectionString;
+            conexionBD = new ConexionBD(connectionString);
         }
 
         public void InsertarProveedor(string nombre, string apellido, string identificacion, string direccion, string telefono, string correo)
         {
-            using (SqlConnection connection = new SqlConnection(connectionString))
+            using (SqlConnection connection = conexionBD.ObtenerConexion())
             {
-                connection.Open();
-
                 using (SqlCommand cmd = new SqlCommand("InsertarProveedor", connection))
                 {
                     cmd.CommandType = CommandType.StoredProcedure;
@@ -40,10 +34,8 @@ namespace cine_acceso_datos.DAO
 
         public DataTable ObtenerProveedor(int idProveedor)
         {
-            using (SqlConnection connection = new SqlConnection(connectionString))
+            using (SqlConnection connection = conexionBD.ObtenerConexion())
             {
-                connection.Open();
-
                 using (SqlCommand cmd = new SqlCommand("ObtenerProveedor", connection))
                 {
                     cmd.CommandType = CommandType.StoredProcedure;
@@ -61,10 +53,8 @@ namespace cine_acceso_datos.DAO
 
         public void ActualizarProveedor(int idProveedor, string nombre, string apellido, string identificacion, string direccion, string telefono, string correo)
         {
-            using (SqlConnection connection = new SqlConnection(connectionString))
+            using (SqlConnection connection = conexionBD.ObtenerConexion())
             {
-                connection.Open();
-
                 using (SqlCommand cmd = new SqlCommand("ActualizarProveedor", connection))
                 {
                     cmd.CommandType = CommandType.StoredProcedure;
@@ -83,10 +73,8 @@ namespace cine_acceso_datos.DAO
 
         public void EliminarProveedor(int idProveedor)
         {
-            using (SqlConnection connection = new SqlConnection(connectionString))
+            using (SqlConnection connection = conexionBD.ObtenerConexion())
             {
-                connection.Open();
-
                 using (SqlCommand cmd = new SqlCommand("EliminarProveedor", connection))
                 {
                     cmd.CommandType = CommandType.StoredProcedure;

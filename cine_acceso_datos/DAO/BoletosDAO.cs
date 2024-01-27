@@ -25,7 +25,7 @@ namespace cine_acceso_datos.DAO
                 connection.Open();
                 using (SqlCommand command = new SqlCommand("InsertarBoleto", connection))
                 {
-                    command.CommandType = CommandType.StoredProcedure;
+                    command.CommandType = System.Data.CommandType.StoredProcedure;
                     command.Parameters.AddWithValue("@ID_BOLETOS", idBoletos);
                     command.Parameters.AddWithValue("@CODIGO_TICKET", codigoTicket);
                     command.ExecuteNonQuery();
@@ -41,14 +41,13 @@ namespace cine_acceso_datos.DAO
                 connection.Open();
                 using (SqlCommand command = new SqlCommand("ObtenerBoletos", connection))
                 {
-                    command.CommandType = CommandType.StoredProcedure;
+                    command.CommandType = System.Data.CommandType.StoredProcedure;
                     using (SqlDataReader reader = command.ExecuteReader())
                     {
                         while (reader.Read())
                         {
                             Boletos boleto = new Boletos
                             {
-                                ID_SALA_CINE = (int)reader["ID_SALA_CINE"],
                                 ID_BOLETOS = (int)reader["ID_BOLETOS"],
                                 FECHA_CREACION_BOLETOS = (DateTime)reader["FECHA_CREACION_BOLETOS"],
                                 ACTIVO_BOLETOS = (bool)reader["ACTIVO_BOLETOS"],
@@ -62,15 +61,14 @@ namespace cine_acceso_datos.DAO
             return boletos;
         }
 
-        public void ActualizarBoleto(int idSalaCine, int idBoletos, string codigoTicket)
+        public void ActualizarBoleto(int idBoletos, string codigoTicket)
         {
             using (SqlConnection connection = new SqlConnection(connectionString))
             {
                 connection.Open();
                 using (SqlCommand command = new SqlCommand("ActualizarBoleto", connection))
                 {
-                    command.CommandType = CommandType.StoredProcedure;
-                    command.Parameters.AddWithValue("@ID_SALA_CINE", idSalaCine);
+                    command.CommandType = System.Data.CommandType.StoredProcedure;
                     command.Parameters.AddWithValue("@ID_BOLETOS", idBoletos);
                     command.Parameters.AddWithValue("@CODIGO_TICKET", codigoTicket);
                     command.ExecuteNonQuery();
@@ -78,15 +76,15 @@ namespace cine_acceso_datos.DAO
             }
         }
 
-        public void EliminarBoleto(int ID_SALA_CINE)
+        public void EliminarBoleto(int idBoletos)
         {
             using (SqlConnection connection = new SqlConnection(connectionString))
             {
                 connection.Open();
                 using (SqlCommand command = new SqlCommand("EliminarBoleto", connection))
                 {
-                    command.CommandType = CommandType.StoredProcedure;
-                    command.Parameters.AddWithValue("@ID_SALA_CINE", ID_SALA_CINE);
+                    command.CommandType = System.Data.CommandType.StoredProcedure;
+                    command.Parameters.AddWithValue("@ID_BOLETOS", idBoletos);
                     command.ExecuteNonQuery();
                 }
             }

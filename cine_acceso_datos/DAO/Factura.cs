@@ -11,19 +11,17 @@ namespace cine_acceso_datos.DAO
 {
     public class FacturaDAO
     {
-        private string connectionString;
+        private ConexionBD conexionBD;
 
-        public FacturaDAO(string connectionString)
+        public FacturaDAO(ConexionBD conexionBD)
         {
-            this.connectionString = connectionString;
+            this.conexionBD = conexionBD;
         }
 
         public void InsertarFactura(int idFactura, string numeroFactura, DateTime fechaExpedicion, string estadoPago)
         {
-            using (SqlConnection connection = new SqlConnection(connectionString))
+            using (SqlConnection connection = conexionBD.ObtenerConexion())
             {
-                connection.Open();
-
                 using (SqlCommand cmd = new SqlCommand("InsertarFactura", connection))
                 {
                     cmd.CommandType = CommandType.StoredProcedure;
@@ -41,10 +39,8 @@ namespace cine_acceso_datos.DAO
         {
             List<Factura> facturas = new List<Factura>();
 
-            using (SqlConnection connection = new SqlConnection(connectionString))
+            using (SqlConnection connection = conexionBD.ObtenerConexion())
             {
-                connection.Open();
-
                 using (SqlCommand cmd = new SqlCommand("ObtenerTodasFacturas", connection))
                 {
                     cmd.CommandType = CommandType.StoredProcedure;
@@ -72,10 +68,8 @@ namespace cine_acceso_datos.DAO
 
         public Factura ObtenerFacturaPorID(int idPedidoCompra, int idFactura)
         {
-            using (SqlConnection connection = new SqlConnection(connectionString))
+            using (SqlConnection connection = conexionBD.ObtenerConexion())
             {
-                connection.Open();
-
                 using (SqlCommand cmd = new SqlCommand("ObtenerFacturaPorID", connection))
                 {
                     cmd.CommandType = CommandType.StoredProcedure;
@@ -105,10 +99,8 @@ namespace cine_acceso_datos.DAO
 
         public void ActualizarFactura(int idPedidoCompra, int idFactura, string numeroFactura, DateTime fechaExpedicion, string estadoPago)
         {
-            using (SqlConnection connection = new SqlConnection(connectionString))
+            using (SqlConnection connection = conexionBD.ObtenerConexion())
             {
-                connection.Open();
-
                 using (SqlCommand cmd = new SqlCommand("ActualizarFactura", connection))
                 {
                     cmd.CommandType = CommandType.StoredProcedure;
@@ -125,10 +117,8 @@ namespace cine_acceso_datos.DAO
 
         public void EliminarFactura(int idPedidoCompra, int idFactura)
         {
-            using (SqlConnection connection = new SqlConnection(connectionString))
+            using (SqlConnection connection = conexionBD.ObtenerConexion())
             {
-                connection.Open();
-
                 using (SqlCommand cmd = new SqlCommand("EliminarFactura", connection))
                 {
                     cmd.CommandType = CommandType.StoredProcedure;

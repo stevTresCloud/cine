@@ -1,37 +1,50 @@
-﻿using System;
-using System.Collections.Generic;
-using System;
-using Microsoft.Data.SqlClient;
-using System.Data;
+﻿using Microsoft.Data.SqlClient;
 
-namespace cinema_acceso_datos
+public class ConexionBD
 {
-    public class ConexionDB
+    private string cadenaConexion;
+    private SqlConnection conexion;
+    private string connectionString;
+
+    public ConexionBD()
     {
-        //1.- escibir la conexion de DB
-        private SqlConnection connection = new SqlConnection("Server=STEVEN-LUNA\\SQLEXPRESS;DataBase=extremCinema;User Id=usuarioCinema;Password=uisrael1309");
+        cadenaConexion = "Server=STEVEN-LUNA\\SQLEXPRESS;DataBase=extremCinema;User Id=usuarioCinema;Password=uisrael1309";
+        conexion = new SqlConnection(cadenaConexion);
+    }
 
-        //2.- método para abrir la conexion
+    public ConexionBD(string connectionString)
+    {
+        this.connectionString = connectionString;
+    }
 
-        public SqlConnection AbrirConexion()
+    public SqlConnection ObtenerConexion()
+    {
+        try
         {
-            if (connection.State == ConnectionState.Closed)
+            if (conexion.State == System.Data.ConnectionState.Closed)
             {
-                connection.Open();
+                conexion.Open();
             }
-            return connection;
+            return conexion;
         }
-
-        //3.- método para cerrar la conexion
-        public SqlConnection CerrarConexion()
+        catch (Exception ex)
         {
-            if (connection.State == ConnectionState.Open)
-            {
-                connection.Close();
-            }
-            return connection;
+            throw new Exception("Error al abrir la conexión a la base de datos", ex);
         }
+    }
 
-
+    public void CerrarConexion()
+    {
+        try
+        {
+            if (conexion.State == System.Data.ConnectionState.Open)
+            {
+                conexion.Close();
+            }
+        }
+        catch (Exception ex)
+        {
+            throw new Exception("Error al cerrar la conexión a la base de datos", ex);
+        }
     }
 }

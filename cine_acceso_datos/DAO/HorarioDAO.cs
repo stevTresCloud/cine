@@ -11,18 +11,17 @@ namespace cine_acceso_datos.DAO
 {
     public class HorarioDAO
     {
-        private readonly string connectionString;
+        private readonly ConexionBD conexionBD;
 
-        public HorarioDAO(string connectionString)
+        public HorarioDAO(ConexionBD conexionBD)
         {
-            this.connectionString = connectionString;
+            this.conexionBD = conexionBD;
         }
 
         public void InsertarHorario(int idSalaCine, int idPelicula, string horaInicio, DateTime fecha)
         {
-            using (SqlConnection connection = new SqlConnection(connectionString))
+            using (SqlConnection connection = conexionBD.ObtenerConexion())
             {
-                connection.Open();
                 using (SqlCommand command = new SqlCommand("usp_InsertarHorario", connection))
                 {
                     command.CommandType = CommandType.StoredProcedure;
@@ -40,9 +39,8 @@ namespace cine_acceso_datos.DAO
         {
             List<Horario> horarios = new List<Horario>();
 
-            using (SqlConnection connection = new SqlConnection(connectionString))
+            using (SqlConnection connection = conexionBD.ObtenerConexion())
             {
-                connection.Open();
                 using (SqlCommand command = new SqlCommand("usp_SeleccionarHorarios", connection))
                 {
                     command.CommandType = CommandType.StoredProcedure;
@@ -73,9 +71,8 @@ namespace cine_acceso_datos.DAO
 
         public void ActualizarHorario(int idHorario, int idSalaCine, int idPelicula, string horaInicio, DateTime fecha)
         {
-            using (SqlConnection connection = new SqlConnection(connectionString))
+            using (SqlConnection connection = conexionBD.ObtenerConexion())
             {
-                connection.Open();
                 using (SqlCommand command = new SqlCommand("usp_ActualizarHorario", connection))
                 {
                     command.CommandType = CommandType.StoredProcedure;
@@ -92,9 +89,8 @@ namespace cine_acceso_datos.DAO
 
         public void EliminarHorario(int idHorario)
         {
-            using (SqlConnection connection = new SqlConnection(connectionString))
+            using (SqlConnection connection = conexionBD.ObtenerConexion())
             {
-                connection.Open();
                 using (SqlCommand command = new SqlCommand("usp_EliminarHorario", connection))
                 {
                     command.CommandType = CommandType.StoredProcedure;

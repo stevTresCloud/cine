@@ -26,7 +26,7 @@ namespace cine_acceso_datos.DAO
 
                 using (SqlCommand cmd = new SqlCommand("InsertarAsiento", connection))
                 {
-                    cmd.CommandType = CommandType.StoredProcedure;
+                    cmd.CommandType = System.Data.CommandType.StoredProcedure;
 
                     cmd.Parameters.AddWithValue("@ID_SALA_CINE", asiento.ID_SALA_CINE);
                     cmd.Parameters.AddWithValue("@FILA", asiento.FILA);
@@ -47,23 +47,13 @@ namespace cine_acceso_datos.DAO
 
                 using (SqlCommand cmd = new SqlCommand("ObtenerAsientos", connection))
                 {
-                    cmd.CommandType = CommandType.StoredProcedure;
+                    cmd.CommandType = System.Data.CommandType.StoredProcedure;
 
                     using (SqlDataReader reader = cmd.ExecuteReader())
                     {
                         while (reader.Read())
                         {
-                            Asiento asiento = new Asiento
-                            {
-                                ID_ASIENTOS = Convert.ToInt32(reader["ID_ASIENTOS"]),
-                                ID_SALA_CINE = Convert.ToInt32(reader["ID_SALA_CINE"]),
-                                FECHA_CREACION_ASIENTOS = Convert.ToDateTime(reader["FECHA_CREACION_ASIENTOS"]),
-                                ACTIVO_ASIENTOS = Convert.ToBoolean(reader["ACTIVO_ASIENTOS"]),
-                                FILA = reader["FILA"].ToString(),
-                                COLUMNA = reader["COLUMNA"].ToString(),
-                                DISPONIBILIDAD = Convert.ToBoolean(reader["DISPONIBILIDAD"])
-                            };
-
+                            Asiento asiento = MapAsientoFromReader(reader);
                             asientos.Add(asiento);
                         }
                     }
@@ -81,7 +71,7 @@ namespace cine_acceso_datos.DAO
 
                 using (SqlCommand cmd = new SqlCommand("ActualizarAsiento", connection))
                 {
-                    cmd.CommandType = CommandType.StoredProcedure;
+                    cmd.CommandType = System.Data.CommandType.StoredProcedure;
 
                     cmd.Parameters.AddWithValue("@ID_ASIENTOS", asiento.ID_ASIENTOS);
                     cmd.Parameters.AddWithValue("@ID_SALA_CINE", asiento.ID_SALA_CINE);
@@ -101,13 +91,27 @@ namespace cine_acceso_datos.DAO
 
                 using (SqlCommand cmd = new SqlCommand("EliminarAsiento", connection))
                 {
-                    cmd.CommandType = CommandType.StoredProcedure;
+                    cmd.CommandType = System.Data.CommandType.StoredProcedure;
 
                     cmd.Parameters.AddWithValue("@ID_ASIENTOS", idAsiento);
 
                     cmd.ExecuteNonQuery();
                 }
             }
+        }
+
+        private Asiento MapAsientoFromReader(SqlDataReader reader)
+        {
+            return new Asiento
+            {
+                ID_ASIENTOS = Convert.ToInt32(reader["ID_ASIENTOS"]),
+                ID_SALA_CINE = Convert.ToInt32(reader["ID_SALA_CINE"]),
+                FECHA_CREACION_ASIENTOS = Convert.ToDateTime(reader["FECHA_CREACION_ASIENTOS"]),
+                ACTIVO_ASIENTOS = Convert.ToBoolean(reader["ACTIVO_ASIENTOS"]),
+                FILA = reader["FILA"].ToString(),
+                COLUMNA = reader["COLUMNA"].ToString(),
+                DISPONIBILIDAD = Convert.ToBoolean(reader["DISPONIBILIDAD"])
+            };
         }
     }
 }
