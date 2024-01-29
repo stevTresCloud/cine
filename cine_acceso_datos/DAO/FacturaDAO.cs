@@ -13,6 +13,11 @@ namespace cine_acceso_datos.DAO
     {
         private ConexionBD conexionBD;
 
+        public FacturaDAO()
+        {
+            conexionBD = new ConexionBD();
+        }
+
         public FacturaDAO(ConexionBD conexionBD)
         {
             this.conexionBD = conexionBD;
@@ -66,14 +71,13 @@ namespace cine_acceso_datos.DAO
             return facturas;
         }
 
-        public Factura ObtenerFacturaPorID(int idPedidoCompra, int idFactura)
+        public Factura ObtenerFacturaPorID(int idFactura)
         {
             using (SqlConnection connection = conexionBD.ObtenerConexion())
             {
                 using (SqlCommand cmd = new SqlCommand("ObtenerFacturaPorID", connection))
                 {
                     cmd.CommandType = CommandType.StoredProcedure;
-                    cmd.Parameters.AddWithValue("@ID_PEDIDO_COMPRA", idPedidoCompra);
                     cmd.Parameters.AddWithValue("@ID_FACTURA", idFactura);
 
                     using (SqlDataReader reader = cmd.ExecuteReader())
@@ -115,14 +119,13 @@ namespace cine_acceso_datos.DAO
             }
         }
 
-        public void EliminarFactura(int idPedidoCompra, int idFactura)
+        public void EliminarFactura(int idFactura)
         {
             using (SqlConnection connection = conexionBD.ObtenerConexion())
             {
                 using (SqlCommand cmd = new SqlCommand("EliminarFactura", connection))
                 {
                     cmd.CommandType = CommandType.StoredProcedure;
-                    cmd.Parameters.AddWithValue("@ID_PEDIDO_COMPRA", idPedidoCompra);
                     cmd.Parameters.AddWithValue("@ID_FACTURA", idFactura);
 
                     cmd.ExecuteNonQuery();

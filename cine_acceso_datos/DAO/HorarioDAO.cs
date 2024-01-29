@@ -13,6 +13,11 @@ namespace cine_acceso_datos.DAO
     {
         private readonly ConexionBD conexionBD;
 
+        public HorarioDAO()
+        {
+            conexionBD = new ConexionBD();
+        }
+
         public HorarioDAO(ConexionBD conexionBD)
         {
             this.conexionBD = conexionBD;
