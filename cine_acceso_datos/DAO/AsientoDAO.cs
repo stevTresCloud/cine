@@ -11,26 +11,38 @@ namespace cine_acceso_datos.DAO
 {
     public class AsientoDAO
     {
-        private ConexionBD conexion;
+        private readonly ConexionBD conexionBD;
 
-        public AsientoDAO(ConexionBD conexion)
+        public AsientoDAO()
         {
-            this.conexion = conexion;
+            conexionBD = new ConexionBD();
+        }
+
+        public AsientoDAO(string connectionString)
+        {
+            conexionBD = new ConexionBD(connectionString);
         }
 
         public void InsertarAsiento(Asiento asiento)
         {
-            using (SqlConnection connection = conexion.ObtenerConexion())
+            using (SqlConnection connection = conexionBD.ObtenerConexion())
             {
-                using (SqlCommand cmd = new SqlCommand("InsertarAsiento", connection))
+                try
                 {
-                    cmd.CommandType = System.Data.CommandType.StoredProcedure;
+                    using (SqlCommand cmd = new SqlCommand("InsertarAsiento", connection))
+                    {
+                        cmd.CommandType = System.Data.CommandType.StoredProcedure;
 
-                    cmd.Parameters.AddWithValue("@ID_SALA_CINE", asiento.ID_SALA_CINE);
-                    cmd.Parameters.AddWithValue("@FILA", asiento.FILA);
-                    cmd.Parameters.AddWithValue("@COLUMNA", asiento.COLUMNA);
+                        cmd.Parameters.AddWithValue("@ID_SALA_CINE", asiento.ID_SALA_CINE);
+                        cmd.Parameters.AddWithValue("@FILA", asiento.FILA);
+                        cmd.Parameters.AddWithValue("@COLUMNA", asiento.COLUMNA);
 
-                    cmd.ExecuteNonQuery();
+                        cmd.ExecuteNonQuery();
+                    }
+                }
+                catch (Exception ex)
+                {
+                    throw new Exception("Error al insertar asiento", ex);
                 }
             }
         }
@@ -39,20 +51,27 @@ namespace cine_acceso_datos.DAO
         {
             List<Asiento> asientos = new List<Asiento>();
 
-            using (SqlConnection connection = conexion.ObtenerConexion())
+            using (SqlConnection connection = conexionBD.ObtenerConexion())
             {
-                using (SqlCommand cmd = new SqlCommand("ObtenerAsientos", connection))
+                try
                 {
-                    cmd.CommandType = System.Data.CommandType.StoredProcedure;
-
-                    using (SqlDataReader reader = cmd.ExecuteReader())
+                    using (SqlCommand cmd = new SqlCommand("ObtenerAsientos", connection))
                     {
-                        while (reader.Read())
+                        cmd.CommandType = System.Data.CommandType.StoredProcedure;
+
+                        using (SqlDataReader reader = cmd.ExecuteReader())
                         {
-                            Asiento asiento = MapAsientoFromReader(reader);
-                            asientos.Add(asiento);
+                            while (reader.Read())
+                            {
+                                Asiento asiento = MapAsientoFromReader(reader);
+                                asientos.Add(asiento);
+                            }
                         }
                     }
+                }
+                catch (Exception ex)
+                {
+                    throw new Exception("Error al obtener asientos", ex);
                 }
             }
 
@@ -61,33 +80,47 @@ namespace cine_acceso_datos.DAO
 
         public void ActualizarAsiento(Asiento asiento)
         {
-            using (SqlConnection connection = conexion.ObtenerConexion())
+            using (SqlConnection connection = conexionBD.ObtenerConexion())
             {
-                using (SqlCommand cmd = new SqlCommand("ActualizarAsiento", connection))
+                try
                 {
-                    cmd.CommandType = System.Data.CommandType.StoredProcedure;
+                    using (SqlCommand cmd = new SqlCommand("ActualizarAsiento", connection))
+                    {
+                        cmd.CommandType = System.Data.CommandType.StoredProcedure;
 
-                    cmd.Parameters.AddWithValue("@ID_ASIENTOS", asiento.ID_ASIENTOS);
-                    cmd.Parameters.AddWithValue("@ID_SALA_CINE", asiento.ID_SALA_CINE);
-                    cmd.Parameters.AddWithValue("@FILA", asiento.FILA);
-                    cmd.Parameters.AddWithValue("@COLUMNA", asiento.COLUMNA);
+                        cmd.Parameters.AddWithValue("@ID_ASIENTOS", asiento.ID_ASIENTOS);
+                        cmd.Parameters.AddWithValue("@ID_SALA_CINE", asiento.ID_SALA_CINE);
+                        cmd.Parameters.AddWithValue("@FILA", asiento.FILA);
+                        cmd.Parameters.AddWithValue("@COLUMNA", asiento.COLUMNA);
 
-                    cmd.ExecuteNonQuery();
+                        cmd.ExecuteNonQuery();
+                    }
+                }
+                catch (Exception ex)
+                {
+                    throw new Exception("Error al actualizar asiento", ex);
                 }
             }
         }
 
         public void EliminarAsiento(int idAsiento)
         {
-            using (SqlConnection connection = conexion.ObtenerConexion())
+            using (SqlConnection connection = conexionBD.ObtenerConexion())
             {
-                using (SqlCommand cmd = new SqlCommand("EliminarAsiento", connection))
+                try
                 {
-                    cmd.CommandType = System.Data.CommandType.StoredProcedure;
+                    using (SqlCommand cmd = new SqlCommand("EliminarAsiento", connection))
+                    {
+                        cmd.CommandType = System.Data.CommandType.StoredProcedure;
 
-                    cmd.Parameters.AddWithValue("@ID_ASIENTOS", idAsiento);
+                        cmd.Parameters.AddWithValue("@ID_ASIENTOS", idAsiento);
 
-                    cmd.ExecuteNonQuery();
+                        cmd.ExecuteNonQuery();
+                    }
+                }
+                catch (Exception ex)
+                {
+                    throw new Exception($"Error al eliminar asiento con ID {idAsiento}", ex);
                 }
             }
         }
@@ -106,5 +139,6 @@ namespace cine_acceso_datos.DAO
             };
         }
     }
+
 
 }

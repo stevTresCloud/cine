@@ -6,24 +6,36 @@ namespace cine_acceso_datos.DAO
 {
     public class RepartoDAO
     {
-        private readonly string connectionString;
+        private readonly ConexionBD conexionBD;
+
+        public RepartoDAO()
+        {
+            conexionBD = new ConexionBD();
+        }
 
         public RepartoDAO(string connectionString)
         {
-            this.connectionString = connectionString;
+            conexionBD = new ConexionBD(connectionString);
         }
 
         public void InsertarReparto(Reparto reparto)
         {
-            using (SqlConnection connection = new SqlConnection(connectionString))
+            using (SqlConnection connection = conexionBD.ObtenerConexion())
             {
-                using (SqlCommand command = new SqlCommand("InsertarReparto", connection))
+                try
                 {
-                    command.CommandType = CommandType.StoredProcedure;
-                    command.Parameters.AddWithValue("@NOMBRE", reparto.NOMBRE);
+                    using (SqlCommand command = new SqlCommand("InsertarReparto", connection))
+                    {
+                        command.CommandType = CommandType.StoredProcedure;
+                        command.Parameters.AddWithValue("@NOMBRE", reparto.NOMBRE);
 
-                    connection.Open();
-                    command.ExecuteNonQuery();
+                        connection.Open();
+                        command.ExecuteNonQuery();
+                    }
+                }
+                catch (Exception ex)
+                {
+                    throw new Exception("Error al insertar el reparto", ex);
                 }
             }
         }
@@ -32,29 +44,36 @@ namespace cine_acceso_datos.DAO
         {
             List<Reparto> repartos = new List<Reparto>();
 
-            using (SqlConnection connection = new SqlConnection(connectionString))
+            using (SqlConnection connection = conexionBD.ObtenerConexion())
             {
-                using (SqlCommand command = new SqlCommand("ObtenerRepartos", connection))
+                try
                 {
-                    command.CommandType = CommandType.StoredProcedure;
-
-                    connection.Open();
-
-                    using (SqlDataReader reader = command.ExecuteReader())
+                    using (SqlCommand command = new SqlCommand("ObtenerRepartos", connection))
                     {
-                        while (reader.Read())
-                        {
-                            Reparto reparto = new Reparto
-                            {
-                                ID_REPARTO = Convert.ToInt32(reader["ID_REPARTO"]),
-                                NOMBRE = Convert.ToString(reader["NOMBRE"]),
-                                FECHA_CREACION_REPARTO = Convert.ToDateTime(reader["FECHA_CREACION_REPARTO"]),
-                                ACTIVO_REPARTO = Convert.ToBoolean(reader["ACTIVO_REPARTO"])
-                            };
+                        command.CommandType = CommandType.StoredProcedure;
 
-                            repartos.Add(reparto);
+                        connection.Open();
+
+                        using (SqlDataReader reader = command.ExecuteReader())
+                        {
+                            while (reader.Read())
+                            {
+                                Reparto reparto = new Reparto
+                                {
+                                    ID_REPARTO = Convert.ToInt32(reader["ID_REPARTO"]),
+                                    NOMBRE = Convert.ToString(reader["NOMBRE"]),
+                                    FECHA_CREACION_REPARTO = Convert.ToDateTime(reader["FECHA_CREACION_REPARTO"]),
+                                    ACTIVO_REPARTO = Convert.ToBoolean(reader["ACTIVO_REPARTO"])
+                                };
+
+                                repartos.Add(reparto);
+                            }
                         }
                     }
+                }
+                catch (Exception ex)
+                {
+                    throw new Exception("Error al obtener los repartos", ex);
                 }
             }
 
@@ -65,28 +84,35 @@ namespace cine_acceso_datos.DAO
         {
             Reparto reparto = null;
 
-            using (SqlConnection connection = new SqlConnection(connectionString))
+            using (SqlConnection connection = conexionBD.ObtenerConexion())
             {
-                using (SqlCommand command = new SqlCommand("ObtenerRepartoPorID", connection))
+                try
                 {
-                    command.CommandType = CommandType.StoredProcedure;
-                    command.Parameters.AddWithValue("@ID_REPARTO", idReparto);
-
-                    connection.Open();
-
-                    using (SqlDataReader reader = command.ExecuteReader())
+                    using (SqlCommand command = new SqlCommand("ObtenerRepartoPorID", connection))
                     {
-                        if (reader.Read())
+                        command.CommandType = CommandType.StoredProcedure;
+                        command.Parameters.AddWithValue("@ID_REPARTO", idReparto);
+
+                        connection.Open();
+
+                        using (SqlDataReader reader = command.ExecuteReader())
                         {
-                            reparto = new Reparto
+                            if (reader.Read())
                             {
-                                ID_REPARTO = Convert.ToInt32(reader["ID_REPARTO"]),
-                                NOMBRE = Convert.ToString(reader["NOMBRE"]),
-                                FECHA_CREACION_REPARTO = Convert.ToDateTime(reader["FECHA_CREACION_REPARTO"]),
-                                ACTIVO_REPARTO = Convert.ToBoolean(reader["ACTIVO_REPARTO"])
-                            };
+                                reparto = new Reparto
+                                {
+                                    ID_REPARTO = Convert.ToInt32(reader["ID_REPARTO"]),
+                                    NOMBRE = Convert.ToString(reader["NOMBRE"]),
+                                    FECHA_CREACION_REPARTO = Convert.ToDateTime(reader["FECHA_CREACION_REPARTO"]),
+                                    ACTIVO_REPARTO = Convert.ToBoolean(reader["ACTIVO_REPARTO"])
+                                };
+                            }
                         }
                     }
+                }
+                catch (Exception ex)
+                {
+                    throw new Exception($"Error al obtener el reparto con ID {idReparto}", ex);
                 }
             }
 
@@ -95,31 +121,45 @@ namespace cine_acceso_datos.DAO
 
         public void ActualizarReparto(Reparto reparto)
         {
-            using (SqlConnection connection = new SqlConnection(connectionString))
+            using (SqlConnection connection = conexionBD.ObtenerConexion())
             {
-                using (SqlCommand command = new SqlCommand("ActualizarReparto", connection))
+                try
                 {
-                    command.CommandType = CommandType.StoredProcedure;
-                    command.Parameters.AddWithValue("@ID_REPARTO", reparto.ID_REPARTO);
-                    command.Parameters.AddWithValue("@NOMBRE", reparto.NOMBRE);
+                    using (SqlCommand command = new SqlCommand("ActualizarReparto", connection))
+                    {
+                        command.CommandType = CommandType.StoredProcedure;
+                        command.Parameters.AddWithValue("@ID_REPARTO", reparto.ID_REPARTO);
+                        command.Parameters.AddWithValue("@NOMBRE", reparto.NOMBRE);
 
-                    connection.Open();
-                    command.ExecuteNonQuery();
+                        connection.Open();
+                        command.ExecuteNonQuery();
+                    }
+                }
+                catch (Exception ex)
+                {
+                    throw new Exception($"Error al actualizar el reparto con ID {reparto.ID_REPARTO}", ex);
                 }
             }
         }
 
         public void EliminarReparto(int idReparto)
         {
-            using (SqlConnection connection = new SqlConnection(connectionString))
+            using (SqlConnection connection = conexionBD.ObtenerConexion())
             {
-                using (SqlCommand command = new SqlCommand("EliminarReparto", connection))
+                try
                 {
-                    command.CommandType = CommandType.StoredProcedure;
-                    command.Parameters.AddWithValue("@ID_REPARTO", idReparto);
+                    using (SqlCommand command = new SqlCommand("EliminarReparto", connection))
+                    {
+                        command.CommandType = CommandType.StoredProcedure;
+                        command.Parameters.AddWithValue("@ID_REPARTO", idReparto);
 
-                    connection.Open();
-                    command.ExecuteNonQuery();
+                        connection.Open();
+                        command.ExecuteNonQuery();
+                    }
+                }
+                catch (Exception ex)
+                {
+                    throw new Exception($"Error al eliminar el reparto con ID {idReparto}", ex);
                 }
             }
         }

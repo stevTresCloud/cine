@@ -10,6 +10,11 @@ namespace cine_acceso_datos.DAO
     {
         private readonly ConexionBD conexion;
 
+        public UsuarioDAO()
+        {
+            conexion = new ConexionBD();
+        }
+
         public UsuarioDAO(ConexionBD conexion)
         {
             this.conexion = conexion;
@@ -37,6 +42,30 @@ namespace cine_acceso_datos.DAO
                     cmd.ExecuteNonQuery();
                 }
             }
+        }
+
+        public List<Usuario> ObtenerTodosLosUsuarios()
+        {
+            List<Usuario> usuarios = new List<Usuario>();
+
+            using (SqlConnection connection = conexion.ObtenerConexion())
+            {
+                using (SqlCommand cmd = new SqlCommand("ObtenerUsuarios", connection))
+                {
+                    cmd.CommandType = CommandType.StoredProcedure;
+
+                    using (SqlDataReader reader = cmd.ExecuteReader())
+                    {
+                        while (reader.Read())
+                        {
+                            Usuario usuario = MapUsuarioFromReader(reader);
+                            usuarios.Add(usuario);
+                        }
+                    }
+                }
+            }
+
+            return usuarios;
         }
 
         public Usuario ObtenerUsuarioPorID(int idUsuario)

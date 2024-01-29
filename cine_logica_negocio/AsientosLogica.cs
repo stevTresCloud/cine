@@ -14,9 +14,9 @@ namespace cinema_logica_negocio
     {
         private AsientoDAO asientosDao;
 
-        public AsientosLogica(string connectionString)
+        public AsientosLogica()
         {
-            asientosDao = new AsientoDAO(connectionString);
+            asientosDao = new AsientoDAO();
         }
 
         public int InsertarAsiento(Asiento asientos)
@@ -30,5 +30,22 @@ namespace cinema_logica_negocio
         {
             return asientosDao.ObtenerAsientos();
         }
+
+        public Asiento ObtenerAsiento(int idAsiento)
+        {
+            List<Asiento> asientos = asientosDao.ObtenerAsientos();
+            return asientos.Find(a => a.ID_ASIENTOS == idAsiento);
+        }
+
+        public void ActualizarAsiento(Asiento asiento)
+        {
+            asientosDao.ActualizarAsiento(asiento);
+        }
+
+        public void EliminarAsiento(int idAsiento)
+        {
+            asientosDao.EliminarAsiento(idAsiento);
+        }
     }
+
 }

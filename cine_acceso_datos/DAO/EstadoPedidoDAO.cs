@@ -13,6 +13,11 @@ namespace cine_acceso_datos.DAO
     {
         private ConexionBD conexion;
 
+        public EstadoPedidoDAO()
+        {
+            conexion = new ConexionBD();
+        }
+
         public EstadoPedidoDAO(ConexionBD conexion)
         {
             this.conexion = conexion;
