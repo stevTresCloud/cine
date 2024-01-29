@@ -11,19 +11,17 @@ namespace cine_acceso_datos.DAO
 {
     public class AsientoDAO
     {
-        private string connectionString;
+        private ConexionBD conexion;
 
-        public AsientoDAO(string connectionString)
+        public AsientoDAO(ConexionBD conexion)
         {
-            this.connectionString = connectionString;
+            this.conexion = conexion;
         }
 
         public void InsertarAsiento(Asiento asiento)
         {
-            using (SqlConnection connection = new SqlConnection(connectionString))
+            using (SqlConnection connection = conexion.ObtenerConexion())
             {
-                connection.Open();
-
                 using (SqlCommand cmd = new SqlCommand("InsertarAsiento", connection))
                 {
                     cmd.CommandType = System.Data.CommandType.StoredProcedure;
@@ -41,10 +39,8 @@ namespace cine_acceso_datos.DAO
         {
             List<Asiento> asientos = new List<Asiento>();
 
-            using (SqlConnection connection = new SqlConnection(connectionString))
+            using (SqlConnection connection = conexion.ObtenerConexion())
             {
-                connection.Open();
-
                 using (SqlCommand cmd = new SqlCommand("ObtenerAsientos", connection))
                 {
                     cmd.CommandType = System.Data.CommandType.StoredProcedure;
@@ -65,10 +61,8 @@ namespace cine_acceso_datos.DAO
 
         public void ActualizarAsiento(Asiento asiento)
         {
-            using (SqlConnection connection = new SqlConnection(connectionString))
+            using (SqlConnection connection = conexion.ObtenerConexion())
             {
-                connection.Open();
-
                 using (SqlCommand cmd = new SqlCommand("ActualizarAsiento", connection))
                 {
                     cmd.CommandType = System.Data.CommandType.StoredProcedure;
@@ -85,10 +79,8 @@ namespace cine_acceso_datos.DAO
 
         public void EliminarAsiento(int idAsiento)
         {
-            using (SqlConnection connection = new SqlConnection(connectionString))
+            using (SqlConnection connection = conexion.ObtenerConexion())
             {
-                connection.Open();
-
                 using (SqlCommand cmd = new SqlCommand("EliminarAsiento", connection))
                 {
                     cmd.CommandType = System.Data.CommandType.StoredProcedure;
@@ -114,4 +106,5 @@ namespace cine_acceso_datos.DAO
             };
         }
     }
+
 }

@@ -11,21 +11,20 @@ namespace cine_acceso_datos.DAO
 {
     public class BoletosDAO
     {
-        private readonly string connectionString;
+        private readonly ConexionBD conexionBD;
 
-        public BoletosDAO(string connectionString)
+        public BoletosDAO(ConexionBD conexionBD)
         {
-            this.connectionString = connectionString;
+            this.conexionBD = conexionBD;
         }
 
         public void InsertarBoleto(int idBoletos, string codigoTicket)
         {
-            using (SqlConnection connection = new SqlConnection(connectionString))
+            using (SqlConnection connection = conexionBD.ObtenerConexion())
             {
-                connection.Open();
                 using (SqlCommand command = new SqlCommand("InsertarBoleto", connection))
                 {
-                    command.CommandType = System.Data.CommandType.StoredProcedure;
+                    command.CommandType = CommandType.StoredProcedure;
                     command.Parameters.AddWithValue("@ID_BOLETOS", idBoletos);
                     command.Parameters.AddWithValue("@CODIGO_TICKET", codigoTicket);
                     command.ExecuteNonQuery();
@@ -36,12 +35,11 @@ namespace cine_acceso_datos.DAO
         public List<Boletos> ObtenerBoletos()
         {
             List<Boletos> boletos = new List<Boletos>();
-            using (SqlConnection connection = new SqlConnection(connectionString))
+            using (SqlConnection connection = conexionBD.ObtenerConexion())
             {
-                connection.Open();
                 using (SqlCommand command = new SqlCommand("ObtenerBoletos", connection))
                 {
-                    command.CommandType = System.Data.CommandType.StoredProcedure;
+                    command.CommandType = CommandType.StoredProcedure;
                     using (SqlDataReader reader = command.ExecuteReader())
                     {
                         while (reader.Read())
@@ -63,12 +61,11 @@ namespace cine_acceso_datos.DAO
 
         public void ActualizarBoleto(int idBoletos, string codigoTicket)
         {
-            using (SqlConnection connection = new SqlConnection(connectionString))
+            using (SqlConnection connection = conexionBD.ObtenerConexion())
             {
-                connection.Open();
                 using (SqlCommand command = new SqlCommand("ActualizarBoleto", connection))
                 {
-                    command.CommandType = System.Data.CommandType.StoredProcedure;
+                    command.CommandType = CommandType.StoredProcedure;
                     command.Parameters.AddWithValue("@ID_BOLETOS", idBoletos);
                     command.Parameters.AddWithValue("@CODIGO_TICKET", codigoTicket);
                     command.ExecuteNonQuery();
@@ -78,16 +75,16 @@ namespace cine_acceso_datos.DAO
 
         public void EliminarBoleto(int idBoletos)
         {
-            using (SqlConnection connection = new SqlConnection(connectionString))
+            using (SqlConnection connection = conexionBD.ObtenerConexion())
             {
-                connection.Open();
                 using (SqlCommand command = new SqlCommand("EliminarBoleto", connection))
                 {
-                    command.CommandType = System.Data.CommandType.StoredProcedure;
+                    command.CommandType = CommandType.StoredProcedure;
                     command.Parameters.AddWithValue("@ID_BOLETOS", idBoletos);
                     command.ExecuteNonQuery();
                 }
             }
         }
     }
+
 }
