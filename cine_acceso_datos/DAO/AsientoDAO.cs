@@ -1,8 +1,8 @@
 ﻿using cine_acceso_datos.Entidades;
-using Microsoft.Data.SqlClient;
 using System;
 using System.Collections.Generic;
 using System.Data;
+using System.Data.SqlClient;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -16,11 +16,6 @@ namespace cine_acceso_datos.DAO
         public AsientoDAO()
         {
             conexionBD = new ConexionBD();
-        }
-
-        public AsientoDAO(string connectionString)
-        {
-            conexionBD = new ConexionBD(connectionString);
         }
 
         public void InsertarAsiento(Asiento asiento)

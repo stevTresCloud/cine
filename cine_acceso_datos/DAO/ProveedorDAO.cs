@@ -1,6 +1,7 @@
 ﻿using cine_acceso_datos.Entidades;
-using Microsoft.Data.SqlClient;
+using System.Data.SqlClient;
 using System;
+using System.Collections.Generic;
 using System.Data;
 
 namespace cine_acceso_datos.DAO
@@ -14,12 +15,7 @@ namespace cine_acceso_datos.DAO
             conexionBD = new ConexionBD();
         }
 
-        public ProveedorDAO(string connectionString)
-        {
-            conexionBD = new ConexionBD(connectionString);
-        }
-
-        public void InsertarProveedor(string nombre, string apellido, string identificacion, string direccion = null, string telefono = null, string correo)
+        public void InsertarProveedor(string nombre, string apellido, string identificacion, string correo, string direccion = null, string telefono = null)
         {
             using (SqlConnection connection = conexionBD.ObtenerConexion())
             {
@@ -107,7 +103,7 @@ namespace cine_acceso_datos.DAO
             }
         }
 
-        public void ActualizarProveedor(int idProveedor, string nombre, string apellido, string identificacion, string direccion = null, string telefono = null, string correo)
+        public void ActualizarProveedor(int idProveedor, string nombre, string apellido, string identificacion, string correo, string direccion = null, string telefono = null)
         {
             using (SqlConnection connection = conexionBD.ObtenerConexion())
             {

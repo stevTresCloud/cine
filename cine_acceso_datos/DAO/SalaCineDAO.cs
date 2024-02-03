@@ -1,6 +1,8 @@
 ﻿using cine_acceso_datos.Entidades;
-using Microsoft.Data.SqlClient;
+using System;
+using System.Collections.Generic;
 using System.Data;
+using System.Data.SqlClient;
 
 namespace cine_acceso_datos.DAO
 {
@@ -11,11 +13,6 @@ namespace cine_acceso_datos.DAO
         public SalaCineDAO()
         {
             conexionBD = new ConexionBD();
-        }
-
-        public SalaCineDAO(string connectionString)
-        {
-            conexionBD = new ConexionBD(connectionString);
         }
 
         public void InsertarSalaCine(SalaCine salaCine)

@@ -13,10 +13,10 @@ namespace cine_logica_negocio
     {
         private PeliculaDAO peliculaDao = new PeliculaDAO();
 
-        public int InsertarPelicula(int idLineasPedido, string titulo, string categoria, string restriccion, string sinopsis,
+        public int InsertarPelicula(string titulo, string categoria, string restriccion, string sinopsis,
             string trailerUrl, int calificacion, int cantidadPelicula)
         {
-            peliculaDao.InsertarPelicula(idLineasPedido, titulo, categoria, restriccion, sinopsis, trailerUrl, calificacion, cantidadPelicula);
+            peliculaDao.InsertarPelicula(titulo, categoria, restriccion, sinopsis, trailerUrl, calificacion, cantidadPelicula);
             List<Pelicula> peliculas = peliculaDao.SeleccionarPeliculas();
             return peliculas.Last().ID_PELICULA;
         }

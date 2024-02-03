@@ -1,5 +1,5 @@
 ﻿using cine_acceso_datos.Entidades;
-using Microsoft.Data.SqlClient;
+using System.Data.SqlClient;
 using System;
 using System.Collections.Generic;
 using System.Data;
@@ -23,14 +23,14 @@ namespace cine_acceso_datos.DAO
             this.conexionBD = conexionBD;
         }
 
-        public void InsertarFactura(int idFactura, string numeroFactura, DateTime fechaExpedicion, string estadoPago)
+        public void InsertarFactura(int pedidoFactura, string numeroFactura, DateTime fechaExpedicion, string estadoPago)
         {
             using (SqlConnection connection = conexionBD.ObtenerConexion())
             {
                 using (SqlCommand cmd = new SqlCommand("InsertarFactura", connection))
                 {
                     cmd.CommandType = CommandType.StoredProcedure;
-                    cmd.Parameters.AddWithValue("@ID_FACTURA", idFactura);
+                    cmd.Parameters.AddWithValue("@ID_PEDIDO_COMPRA", pedidoFactura);
                     cmd.Parameters.AddWithValue("@NUMERO_FACTURA", numeroFactura);
                     cmd.Parameters.AddWithValue("@FECHA_EXPEDICION", fechaExpedicion);
                     cmd.Parameters.AddWithValue("@ESTADO_PAGO", estadoPago);
@@ -56,6 +56,7 @@ namespace cine_acceso_datos.DAO
                         {
                             Factura factura = new Factura
                             {
+                                ID_PEDIDO_COMPRA = Convert.ToInt32(reader["ID_PEDIDO_COMPRA"]),
                                 ID_FACTURA = Convert.ToInt32(reader["ID_FACTURA"]),
                                 NUMERO_FACTURA = Convert.ToString(reader["NUMERO_FACTURA"]),
                                 FECHA_EXPEDICION = Convert.ToDateTime(reader["FECHA_EXPEDICION"]),
@@ -86,6 +87,7 @@ namespace cine_acceso_datos.DAO
                         {
                             Factura factura = new Factura
                             {
+                                ID_PEDIDO_COMPRA = Convert.ToInt32(reader["ID_PEDIDO_COMPRA"]),
                                 ID_FACTURA = Convert.ToInt32(reader["ID_FACTURA"]),
                                 NUMERO_FACTURA = Convert.ToString(reader["NUMERO_FACTURA"]),
                                 FECHA_EXPEDICION = Convert.ToDateTime(reader["FECHA_EXPEDICION"]),

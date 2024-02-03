@@ -1,5 +1,7 @@
 ﻿using cine_acceso_datos.Entidades;
-using Microsoft.Data.SqlClient;
+using System.Data.SqlClient;
+using System;
+using System.Collections.Generic;
 using System.Data;
 
 namespace cine_acceso_datos.DAO
@@ -11,11 +13,6 @@ namespace cine_acceso_datos.DAO
         public RolDAO()
         {
             conexionBD = new ConexionBD();
-        }
-
-        public RolDAO(string connectionString)
-        {
-            conexionBD = new ConexionBD(connectionString);
         }
 
         public void InsertarRol(Rol rol)

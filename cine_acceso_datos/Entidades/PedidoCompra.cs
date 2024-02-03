@@ -10,7 +10,7 @@ namespace cine_acceso_datos.Entidades
     {
         public int ID_PEDIDO_COMPRA { get; set; }
         public int ID_PROVEEDOR { get; set; }
-        public int ID_ESTADO_PROVEEDOR { get; set; }
+        public int ID_ESTADO_PEDIDO { get; set; }
         public string NUMERO_PEDIDO_COMPRA { get; set; }
         public bool ACTIVO_PEDIDO_COMPRA { get; set; }
         public DateTime FECHA_ENTREGA { get; set; }
@@ -21,15 +21,15 @@ namespace cine_acceso_datos.Entidades
         {
         }
 
-        public PedidoCompra(int idProveedor, int idEstadoPedido, string numeroPedidoCompra, bool activoPedidoCompra, DateTime fechaEntrega, float total)
+        public PedidoCompra(int idPedidoCompra, int idProveedor, int idEstadoPedido, string numeroPedidoCompra, bool activoPedidoCompra, DateTime fechaEntrega, float total)
         {
+            ID_PEDIDO_COMPRA = idPedidoCompra;
             ID_PROVEEDOR = idProveedor;
-            ID_ESTADO_PROVEEDOR = idEstadoPedido;
+            ID_ESTADO_PEDIDO = idEstadoPedido;
             NUMERO_PEDIDO_COMPRA = numeroPedidoCompra;
             ACTIVO_PEDIDO_COMPRA = activoPedidoCompra;
             FECHA_ENTREGA = fechaEntrega;
             TOTAL = total;
-            FECHA_CREACION_PEDIDO_COMPRA = DateTime.Now;
         }
     }
 }

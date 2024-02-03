@@ -1,6 +1,5 @@
 ﻿using System;
 using System.Collections.Generic;
-using Microsoft.Data.SqlClient;
 using System.Data;
 using System.Linq;
 using System.Text;
@@ -19,11 +18,11 @@ namespace cine_logica_negocio
             facturaDao = new FacturaDAO();
         }
 
-        public int InsertarFactura(int idFactura, string numeroFactura, DateTime fechaExpedicion, string estadoPago)
+        public int InsertarFactura(int pedidoFactura, string numeroFactura, DateTime fechaExpedicion, string estadoPago)
         {
-            facturaDao.InsertarFactura(idFactura, numeroFactura, fechaExpedicion, estadoPago);
-            Factura factura = facturaDao.ObtenerFacturaPorID(idFactura);
-            return factura != null ? factura.ID_FACTURA : -1;
+            facturaDao.InsertarFactura(pedidoFactura, numeroFactura, fechaExpedicion, estadoPago);
+            List<Factura> todasFacturas = facturaDao.ObtenerTodasFacturas();
+            return todasFacturas[todasFacturas.Count - 1].ID_FACTURA;
         }
 
         public List<Factura> ObtenerTodasFacturas()
