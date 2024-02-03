@@ -1,6 +1,8 @@
 ﻿using cine_acceso_datos.Entidades;
-using Microsoft.Data.SqlClient;
+using System.Data.SqlClient;
+using System;
 using System.Data;
+using System.Collections.Generic;
 
 namespace cine_acceso_datos.DAO
 {
@@ -25,7 +27,7 @@ namespace cine_acceso_datos.DAO
                         comando.CommandType = CommandType.StoredProcedure;
 
                         comando.Parameters.AddWithValue("@ID_PROVEEDOR", pedido.ID_PROVEEDOR);
-                        comando.Parameters.AddWithValue("@ID_ESTADO_PEDIDO", pedido.ID_ESTADO_PROVEEDOR);
+                        comando.Parameters.AddWithValue("@ID_ESTADO_PEDIDO", pedido.ID_ESTADO_PEDIDO);
                         comando.Parameters.AddWithValue("@NUMERO_PEDIDO_COMPRA", pedido.NUMERO_PEDIDO_COMPRA);
                         comando.Parameters.AddWithValue("@FECHA_ENTREGA", pedido.FECHA_ENTREGA);
                         comando.Parameters.AddWithValue("@TOTAL", pedido.TOTAL);
@@ -45,9 +47,9 @@ namespace cine_acceso_datos.DAO
         }
 
         // Método para obtener todos los pedidos de compra
-        public DataTable ObtenerPedidosCompra()
+        public List<PedidoCompra> ObtenerPedidosCompra()
         {
-            DataTable dataTable = new DataTable();
+            List<PedidoCompra> listaPedidos = new List<PedidoCompra>();
 
             try
             {
@@ -57,9 +59,18 @@ namespace cine_acceso_datos.DAO
                     {
                         comando.CommandType = CommandType.StoredProcedure;
 
-                        using (SqlDataAdapter adaptador = new SqlDataAdapter(comando))
+                        using (SqlDataReader reader = comando.ExecuteReader())
                         {
-                            adaptador.Fill(dataTable);
+                            while (reader.Read())
+                            {
+                                PedidoCompra pedido = new PedidoCompra
+                                {
+                                    // Asigna los valores correspondientes de las columnas en el SqlDataReader
+                                    // Ejemplo: pedido.IdPedido = Convert.ToInt32(reader["IdPedido"]);
+                                };
+
+                                listaPedidos.Add(pedido);
+                            }
                         }
                     }
                 }
@@ -73,7 +84,7 @@ namespace cine_acceso_datos.DAO
                 conexionBD.CerrarConexion();
             }
 
-            return dataTable;
+            return listaPedidos;
         }
 
         // Método para obtener un pedido de compra por su ID
@@ -125,7 +136,7 @@ namespace cine_acceso_datos.DAO
 
                         comando.Parameters.AddWithValue("@ID_PEDIDO_COMPRA", pedido.ID_PEDIDO_COMPRA);
                         comando.Parameters.AddWithValue("@ID_PROVEEDOR", pedido.ID_PROVEEDOR);
-                        comando.Parameters.AddWithValue("@ID_ESTADO_PEDIDO", pedido.ID_ESTADO_PROVEEDOR);
+                        comando.Parameters.AddWithValue("@ID_ESTADO_PEDIDO", pedido.ID_ESTADO_PEDIDO);
                         comando.Parameters.AddWithValue("@NUMERO_PEDIDO_COMPRA", pedido.NUMERO_PEDIDO_COMPRA);
                         comando.Parameters.AddWithValue("@FECHA_ENTREGA", pedido.FECHA_ENTREGA);
                         comando.Parameters.AddWithValue("@TOTAL", pedido.TOTAL);
@@ -177,7 +188,7 @@ namespace cine_acceso_datos.DAO
             {
                 ID_PEDIDO_COMPRA = Convert.ToInt32(reader["ID_PEDIDO_COMPRA"]),
                 ID_PROVEEDOR = Convert.ToInt32(reader["ID_PROVEEDOR"]),
-                ID_ESTADO_PROVEEDOR = Convert.ToInt32(reader["ID_ESTADO_PEDIDO"]),
+                ID_ESTADO_PEDIDO = Convert.ToInt32(reader["ID_ESTADO_PEDIDO"]),
                 NUMERO_PEDIDO_COMPRA = reader["NUMERO_PEDIDO_COMPRA"].ToString(),
                 ACTIVO_PEDIDO_COMPRA = Convert.ToBoolean(reader["ACTIVO_PEDIDO_COMPRA"]),
                 FECHA_ENTREGA = Convert.ToDateTime(reader["FECHA_ENTREGA"]),

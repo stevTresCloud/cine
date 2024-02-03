@@ -3,11 +3,11 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 17
 VisualStudioVersion = 17.8.34511.84
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "cine_acceso_datos", "cine_acceso_datos\cine_acceso_datos.csproj", "{F9EA3516-F194-4DCF-8294-2AA55D25041C}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "cine_presentacion_windows", "cine_presentacion_windows\cine_presentacion_windows.csproj", "{F4B8B008-C391-46C6-AC52-3A8AFE496168}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "cine_logica_negocio", "cine_logica_negocio\cine_logica_negocio.csproj", "{0EDEA7E2-904A-4BB6-9AA5-3B65C7A16BB0}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "cine_acceso_datos", "cine_acceso_datos\cine_acceso_datos.csproj", "{57FB6B4C-B5ED-44D7-BA83-216375ED4162}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "cine_presentacion_windows", "cine_presentacion_windows\cine_presentacion_windows.csproj", "{76F967DF-836F-4242-BAB7-59AE2ADEE803}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "cine_logica_negocio", "cine_logica_negocio\cine_logica_negocio.csproj", "{38DDE525-B95F-4026-B062-13B9532E5D31}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -15,18 +15,18 @@ Global
 		Release|Any CPU = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(ProjectConfigurationPlatforms) = postSolution
-		{F9EA3516-F194-4DCF-8294-2AA55D25041C}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{F9EA3516-F194-4DCF-8294-2AA55D25041C}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{F9EA3516-F194-4DCF-8294-2AA55D25041C}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{F9EA3516-F194-4DCF-8294-2AA55D25041C}.Release|Any CPU.Build.0 = Release|Any CPU
-		{0EDEA7E2-904A-4BB6-9AA5-3B65C7A16BB0}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{0EDEA7E2-904A-4BB6-9AA5-3B65C7A16BB0}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{0EDEA7E2-904A-4BB6-9AA5-3B65C7A16BB0}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{0EDEA7E2-904A-4BB6-9AA5-3B65C7A16BB0}.Release|Any CPU.Build.0 = Release|Any CPU
-		{76F967DF-836F-4242-BAB7-59AE2ADEE803}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{76F967DF-836F-4242-BAB7-59AE2ADEE803}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{76F967DF-836F-4242-BAB7-59AE2ADEE803}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{76F967DF-836F-4242-BAB7-59AE2ADEE803}.Release|Any CPU.Build.0 = Release|Any CPU
+		{F4B8B008-C391-46C6-AC52-3A8AFE496168}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{F4B8B008-C391-46C6-AC52-3A8AFE496168}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{F4B8B008-C391-46C6-AC52-3A8AFE496168}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{F4B8B008-C391-46C6-AC52-3A8AFE496168}.Release|Any CPU.Build.0 = Release|Any CPU
+		{57FB6B4C-B5ED-44D7-BA83-216375ED4162}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{57FB6B4C-B5ED-44D7-BA83-216375ED4162}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{57FB6B4C-B5ED-44D7-BA83-216375ED4162}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{57FB6B4C-B5ED-44D7-BA83-216375ED4162}.Release|Any CPU.Build.0 = Release|Any CPU
+		{38DDE525-B95F-4026-B062-13B9532E5D31}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{38DDE525-B95F-4026-B062-13B9532E5D31}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{38DDE525-B95F-4026-B062-13B9532E5D31}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{38DDE525-B95F-4026-B062-13B9532E5D31}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

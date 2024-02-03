@@ -1,5 +1,7 @@
 ﻿using cine_acceso_datos.Entidades;
-using Microsoft.Data.SqlClient;
+using System.Data.SqlClient;
+using System;
+using System.Collections.Generic;
 using System.Data;
 
 namespace cine_acceso_datos.DAO
@@ -11,11 +13,6 @@ namespace cine_acceso_datos.DAO
         public PagosDAO()
         {
             conexionBD = new ConexionBD();
-        }
-
-        public PagosDAO(string connectionString)
-        {
-            conexionBD = new ConexionBD(connectionString);
         }
 
         public void InsertarPago(Pagos pago)

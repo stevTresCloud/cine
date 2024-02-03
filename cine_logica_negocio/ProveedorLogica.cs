@@ -19,7 +19,7 @@ namespace cine_logica_negocio
 
         public int InsertarProveedor(string nombre, string apellido, string identificacion, string direccion, string telefono, string correo)
         {
-            proveedorDao.InsertarProveedor(nombre, apellido, identificacion, direccion, telefono, correo);
+            proveedorDao.InsertarProveedor(nombre: nombre, apellido: nombre, identificacion: identificacion, direccion: direccion, telefono: telefono, correo: correo);
 
             List<Proveedor> proveedores = proveedorDao.ObtenerProveedores();
             Proveedor ultimoProveedor = proveedores.LastOrDefault();
@@ -39,7 +39,7 @@ namespace cine_logica_negocio
 
         public void ActualizarProveedor(int idProveedor, string nombre, string apellido, string identificacion, string direccion, string telefono, string correo)
         {
-            proveedorDao.ActualizarProveedor(idProveedor, nombre, apellido, identificacion, direccion, telefono, correo);
+            proveedorDao.ActualizarProveedor(idProveedor: idProveedor,nombre: nombre,apellido: apellido, identificacion: identificacion,direccion: direccion,telefono: telefono, correo: correo);
         }
 
         public void EliminarProveedor(int idProveedor)

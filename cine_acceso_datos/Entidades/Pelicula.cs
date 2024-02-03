@@ -9,13 +9,12 @@ namespace cine_acceso_datos.Entidades
     public class Pelicula
     {
         public int ID_PELICULA { get; set; }
-        public int? ID_LINEAS_PEDIDO { get; set; }
         public string TITULO { get; set; }
         public string CATEGORIA { get; set; }
         public string RESTRICCION { get; set; }
         public string SINOPSIS { get; set; }
         public string TRAILER_URL { get; set; }
-        public int? CALIFICACION { get; set; }
+        public int CALIFICACION { get; set; }
         public DateTime FECHA_CREACION_PELICULA { get; set; }
         public bool ACTIVO_PELICULA { get; set; }
         public int CANTIDAD_PELICULA { get; set; }
@@ -24,12 +23,11 @@ namespace cine_acceso_datos.Entidades
         {
         }
 
-        public Pelicula(int idPelicula, int? idLineasPedido, string titulo, string categoria,
-                        string restriccion, string sinopsis, string trailerUrl, int? calificacion,
+        public Pelicula(int idPelicula, string titulo, string categoria,
+                        string restriccion, string sinopsis, string trailerUrl, int calificacion,
                         DateTime fechaCreacion, bool activo, int cantidad)
         {
             ID_PELICULA = idPelicula;
-            ID_LINEAS_PEDIDO = idLineasPedido;
             TITULO = titulo;
             CATEGORIA = categoria;
             RESTRICCION = restriccion;

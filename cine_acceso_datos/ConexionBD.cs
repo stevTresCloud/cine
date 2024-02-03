@@ -1,50 +1,58 @@
-﻿using Microsoft.Data.SqlClient;
+﻿using System;
+using System.Collections.Generic;
+using System.Data;
+using System.Data.SqlClient;
+using System.Data.SqlTypes;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
 
-public class ConexionBD
+namespace cine_acceso_datos
 {
-    private string cadenaConexion;
-    private SqlConnection conexion;
-    private string connectionString;
-
-    public ConexionBD()
+    public class ConexionBD
     {
-        cadenaConexion = "Server=STEVEN-LUNA\\SQLEXPRESS;DataBase=extremCinema;User Id=usuarioCinema;Password=uisrael1309";
-        conexion = new SqlConnection(cadenaConexion);
-    }
+        private static readonly string cadenaConexion = "Data Source=STEVEN-LUNA;Initial Catalog=extrem_cinema;Persist Security Info=True;User ID=sa;Password=uisrael1309;TrustServerCertificate=True";
+        private SqlConnection conexion;
 
-    public ConexionBD(string connectionString)
-    {
-        this.connectionString = connectionString;
-    }
-
-    public SqlConnection ObtenerConexion()
-    {
-        try
+        public ConexionBD()
         {
-            if (conexion.State == System.Data.ConnectionState.Closed)
+            conexion = new SqlConnection(cadenaConexion);
+        }
+
+        public SqlConnection ObtenerConexion()
+        {
+            if (conexion.ConnectionString == string.Empty)
             {
-                conexion.Open();
+                conexion.ConnectionString = cadenaConexion;
             }
-            return conexion;
-        }
-        catch (Exception ex)
-        {
-            throw new Exception("Error al abrir la conexión a la base de datos", ex);
-        }
-    }
-
-    public void CerrarConexion()
-    {
-        try
-        {
-            if (conexion.State == System.Data.ConnectionState.Open)
+            try
             {
-                conexion.Close();
+                if (conexion.State == System.Data.ConnectionState.Closed)
+                {
+                    conexion.Open();
+                }
+                return conexion;
+            }
+            catch (Exception ex)
+            {
+                throw new Exception("Error al abrir la conexión a la base de datos", ex);
             }
         }
-        catch (Exception ex)
+
+        public void CerrarConexion()
         {
-            throw new Exception("Error al cerrar la conexión a la base de datos", ex);
+            try
+            {
+                if (conexion.State == System.Data.ConnectionState.Open)
+                {
+                    conexion.Close();
+                }
+            }
+            catch (Exception ex)
+            {
+                throw new Exception("Error al cerrar la conexión a la base de datos", ex);
+            }
         }
     }
+
 }
